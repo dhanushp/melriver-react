@@ -50,7 +50,7 @@ const Home = () => {
 
     const completeAnimation = () => {
         setAnimationComplete(true)
-    };
+      };
 
     useEffect(() => {
 
@@ -61,12 +61,12 @@ const Home = () => {
 
     return (
         <>
-        {animationComplete === false ? <IntroOverlay /> : '' }
+        {animationComplete === false ? <IntroOverlay /> : "" }
            <IntroOverlay />
            <Banner />
            <Cases /> 
         </>
-    )
-}
+    );
+};
 
 export default Home

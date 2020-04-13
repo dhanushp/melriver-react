@@ -1,29 +1,87 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import {Route} from 'react-router-dom';
 import gsap from "gsap";
 import "./styles/App.scss";
-import Header from "./components/header";
-import Home from "./pages/home";
 
+//components
+import Header from "./components/header";
+import Navigation from "./components/navigation";
+
+//pages
+import Home from "./pages/home";
+import CaseStudies from './pages/caseStudies';
+import Approach from './pages/approach';
+import Services from './pages/services';
+import About from './pages/about';
 
 //routes
+const routes = [
+  {path: '/', name: 'Home', Component: Home},
+  {path: '/case-studies', name: 'Case Studies', Component: CaseStudies},
+  {path: '/approach', name: 'Approaach', Component: Approach},
+  {path: '/services', name: 'Services', Component: Services},
+  {path: '/about-us', name: 'About Us', Component: About},
+
+]
 
 
-function App() {
+function debounce(fn, ms) {
+  let timer;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      fn.apply(this, arguments);
+    }, ms)
+  }
+}
+
+
+const App = () => {
+
+  //Prevents flashing
+  gsap.to('body', 0, {css: {visibility:"visible"} });
+
+  const [dimensions, setDimensions] = useState({
+    height: window.innerHeight,
+    width: window.innerWidth
+  })
   useEffect(() => {
 
     // Grab inner height of windwos for mobile reasons with dealing vh
-    let vh = window.innerHeight * 0.01;
+    let vh = dimensions.height * 0.01;
     // Set css variable vh
     document.documentElement.style.setProperty("--vh", `${vh}px`);
 
-    //Prevents flashing
-    gsap.to('body', 0, {css: {visibility:"visible"} });
+
+    const debouncedHandleResize = debounce(function handleResize() {
+      setDimensions({
+        height: window.innerHeight,
+        width: window.innerWidth
+      })
+    }, 1000) 
+
+
+    window.addEventListener("resize", debouncedHandleResize);
+
+    return () => {
+      window.removeEventListener("resize", debouncedHandleResize)
+    };
+    
   })
 
   return (
     <>
       <Header />
-      <Home />
+      {console.log(dimensions)}
+      <div className='App'>
+        {routes.map(({path,Component}) => (
+          <Route key={path} exact path={path}>
+            <Component />
+          </Route>
+        ))}
+      </div>
+      <Navigation />
     </>
   );
 }

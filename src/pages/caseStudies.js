@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CaseStudy = () => {
+const CaseStudies = () => {
     return (
         <div className='page'>
             <div className='container'>
@@ -12,4 +12,4 @@ const CaseStudy = () => {
     )
 }
 
-export default caseStudy;
+export default CaseStudies;
