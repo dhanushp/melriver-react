@@ -50,7 +50,7 @@ const Navigation = () => {
                             <ul className='nav-info'>
                                 <li className='nav-info-label'>Headquarters</li>
                                 <li>Route du Jura 49</li>
-                                <li>1700Fribourg</li>
+                                <li>1700 Fribourg</li>
                                 <li>Switzerland</li>
                             </ul>
                             <ul className='nav-info'>
