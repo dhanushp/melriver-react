@@ -114,6 +114,7 @@ const Header = ({history, dimensions}) => {
                 }
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [menuState.menuOpened]);
 
     return (
